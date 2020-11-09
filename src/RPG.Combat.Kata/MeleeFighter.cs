@@ -2,7 +2,7 @@
 {
     public class MeleeFighter : Character
     {
-        public MeleeFighter() : base(2)
+        public MeleeFighter() : base(2, "Luke")
         {
         }
     }

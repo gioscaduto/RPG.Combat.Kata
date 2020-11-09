@@ -6,21 +6,23 @@ namespace RPG.Combat.Kata
 {
     public abstract class Character
     {
+        public string NickName { get; private set; }
         public double Health { get; private set; }
         public int Level { get; private set; }
         public bool Alive { get; private set; }
         public int AttackMaxRange { get; private set; }
         public int Position { get; private set; }
-        public List<Faction> Factions { get; private set; } = new List<Faction>();
+        protected List<Faction> Factions { get; private set; } = new List<Faction>();
         public double TotalDamage { get; private set; }
 
-        protected Character(int attackMaxRange)
+        protected Character(int attackMaxRange, string nickName)
         {
             Health = 1000;
             Level = 1;
             Alive = true;
             AttackMaxRange = attackMaxRange;
             Position = 0;
+            NickName = nickName;
         }
 
         public void DealDamage(Character opponent, double damage)
@@ -137,16 +139,21 @@ namespace RPG.Combat.Kata
             if (Position < 0) Position = 0;
         }
 
+        public List<Faction> GetFactions()
+        {
+            return new List<Faction>(Factions);
+        }
+
         public void JoinFaction(Faction faction)
         {
             if (faction == null) throw new Exception("This faction is invalid.");
 
-            if (Factions.Contains(faction))
+            if (Factions.Any(f => f.Equals(faction)))
             {
                 throw new Exception("You already belong to this faction");
             }
 
-            faction.AddChacter(this);
+            faction.AddCharacter(this);
             Factions.Add(faction);
         }
 
@@ -154,12 +161,12 @@ namespace RPG.Combat.Kata
         {
             if (faction == null) throw new Exception("This faction is invalid.");
 
-            if (!Factions.Contains(faction))
+            if (!Factions.Any(f => f.Equals(faction)))
             {
                 throw new Exception("You don't belong to this faction");
             }
 
-            faction.RemoveChacter(this);
+            faction.RemoveCharacter(this);
             Factions.Remove(faction);
         }
 
@@ -169,17 +176,19 @@ namespace RPG.Combat.Kata
 
             if (opponent.Factions.Count == 0 || Factions.Count == 0) return false;
 
-            return opponent.Factions.Any(of => Factions.Any(f => f == of));
+            return opponent.Factions.Any(of => Factions.Any(f => f.Equals(of)));
         }
 
         public void VerifyUpLevel(double damage)
         {
-            TotalDamage += damage;
-
-            if (TotalDamage >= 5000)
+            if(TotalDamage + damage >= 5000)
             {
                 TotalDamage = 0;
                 Level += 1;
+            }
+            else
+            {
+                TotalDamage += damage;
             }
         }
     }

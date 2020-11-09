@@ -2,7 +2,7 @@
 {
     public class RangedGighter : Character
     {
-        public RangedGighter() : base(20)
+        public RangedGighter() : base(20, "John")
         {
         }
     }

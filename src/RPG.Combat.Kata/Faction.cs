@@ -4,16 +4,39 @@ namespace RPG.Combat.Kata
 {
     public abstract class Faction
     {
-        protected List<Character> Characters { get; set; } = new List<Character>();
+        public string Name { get; private set; }
+        protected List<Character> Characters { get; private set; } = new List<Character>();
 
-        public void AddChacter(Character character)
+        protected Faction(string name)
+        {
+            Name = name;
+        }
+
+        public void AddCharacter(Character character)
         {
             Characters.Add(character);
         }
 
-        public void RemoveChacter(Character character)
+        public void RemoveCharacter(Character character)
         {
             Characters.Remove(character);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var anotherFaction = obj as Faction;
+
+            if(anotherFaction != null)
+            {
+                return anotherFaction.Name.Trim().ToLower() == Name.Trim().ToLower();
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

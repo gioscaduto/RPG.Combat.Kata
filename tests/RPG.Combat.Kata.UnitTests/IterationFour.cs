@@ -20,7 +20,7 @@ namespace RPG.Combat.Kata.UnitTests
             var character = _testsFixture.GenerateRangedGighter();
 
             // Assert
-            Assert.Empty(character.Factions);
+            Assert.Empty(character.GetFactions());
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace RPG.Combat.Kata.UnitTests
             character.JoinFaction(usaFaction);
 
             // Assert
-            Assert.Equal(2, character.Factions.Count);
+            Assert.Equal(2, character.GetFactions().Count);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace RPG.Combat.Kata.UnitTests
             character.LeaveFaction(usaFaction);
 
             // Assert
-            Assert.Empty(character.Factions);
+            Assert.Empty(character.GetFactions());
         }
 
         [Fact]

@@ -2,5 +2,8 @@
 {
     public class UsaFaction : Faction
     {
+        public UsaFaction() : base("UsaFaction")
+        {
+        }
     }
 }
