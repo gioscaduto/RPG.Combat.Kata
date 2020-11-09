@@ -5,11 +5,12 @@ namespace RPG.Combat.Kata
     public abstract class Faction
     {
         public string Name { get; private set; }
-        protected List<Character> Characters { get; private set; } = new List<Character>();
+        protected List<Character> Characters;
 
         protected Faction(string name)
         {
             Name = name;
+            Characters = new List<Character>();
         }
 
         public void AddCharacter(Character character)

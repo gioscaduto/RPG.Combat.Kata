@@ -12,7 +12,7 @@ namespace RPG.Combat.Kata
         public bool Alive { get; private set; }
         public int AttackMaxRange { get; private set; }
         public int Position { get; private set; }
-        protected List<Faction> Factions { get; private set; } = new List<Faction>();
+        protected List<Faction> Factions;
         public double TotalDamage { get; private set; }
 
         protected Character(int attackMaxRange, string nickName)
@@ -23,6 +23,7 @@ namespace RPG.Combat.Kata
             AttackMaxRange = attackMaxRange;
             Position = 0;
             NickName = nickName;
+            Factions = new List<Faction>();
         }
 
         public void DealDamage(Character opponent, double damage)
